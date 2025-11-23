@@ -58,7 +58,7 @@ public class strings_and_its_methods {
         System.out.println("Capitalized String: " + capitalizedStr);
         System.out.println(lowerCaseStr.substring(0,1).toUpperCase()+lowerCaseStr.substring(1));
 
-        //checking if a string is panagram ie contains all characters of aphabet
+        //checking if a string is panagram ie contains all characters of alphabet
         String panagram = "The quick brown fox jumps over a lazy dog";
         panagram = panagram.toLowerCase().replaceAll("[^a-z]", "");// this part uses [^a-z] to remove all non-alphabetic characters
         boolean isPanagram = true;
