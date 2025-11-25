@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 public class The_Memory_game {
     private static final Scanner scanner = new Scanner(System.in);
+    // main method
     public static void main(String[] args) {
         try
         {
@@ -22,6 +23,8 @@ public class The_Memory_game {
         System.out.println("Match all pairs to win. Enter -1 at any time to quit.");
         System.out.println("Board positions are numbered 1 to 8.");
         System.out.println("Let's start the game!");
+
+
         try{
             System.out.print("Enter name for Player 1: ");
             player1 = scanner.nextLine();
@@ -48,7 +51,9 @@ public class The_Memory_game {
                 System.out.println("Game quit by:  "+ (turn%2==0 ? player1 : player2));
                 return;
             }
-
+            initializer[firstPos]=board[firstPos];
+            game.generateboard(initializer);
+            initializer[firstPos]=" "; // hide again for next input
             System.out.print("Enter the second position to flip (1-8) or enter -1 to quit: ");
             int secondPos = game.validate_Input() - 1;
 
@@ -120,7 +125,7 @@ public class The_Memory_game {
             }
             pos = scanner.nextInt();
             if(pos==-1){
-                return -2; // to indicate quitting
+                return -1; // to indicate quitting
             }
             if(pos<1 || pos>8){
                 System.out.print("Invalid input. Please enter a position between 1 and 8: ");
