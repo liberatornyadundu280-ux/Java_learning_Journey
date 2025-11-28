@@ -1,0 +1,15 @@
+we are going to be learning about OOP (Object-Oriented Programming) in Java
+. This includes understanding the following concepts:
+1. Classes and Objects: Learn how to define classes and create objects in Java.
+2. Inheritance: Understand how to create a new class that inherits properties and methods from an existing class.
+3. Polymorphism: Learn how to use method overriding and overloading to achieve polymorphism in Java.
+4. Encapsulation: Understand how to restrict access to certain components of an object and protect the internal state.
+5. Abstraction: Learn how to hide complex implementation details and expose only the necessary parts of an object.
+6. Interfaces and Abstract Classes: Understand the difference between interfaces and abstract classes, and how to use them effectively.
+7. Constructors: Learn how to create constructors to initialize objects.
+8. Access Modifiers: Understand the different access levels (public, private, protected, default) and how they affect visibility.
+9. Method and Variable Scope: Learn about local, instance, and class variables and their scopes.
+10. Design Patterns: Get introduced to common design patterns used in OOP, such as Singleton, Factory, and Observer patterns. 
+11. Exception Handling: Learn how to handle exceptions in an object-oriented way using try-catch blocks and custom exceptions.
+So join me as i continue my Journey into mastering OOP in Java!
+Happy Learning! 
