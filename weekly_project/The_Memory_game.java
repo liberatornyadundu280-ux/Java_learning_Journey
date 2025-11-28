@@ -19,10 +19,11 @@ public class The_Memory_game {
         int player2score=0;
         Collections.shuffle(Arrays.asList(board)); // shuffle the board every time the game starts
         // welcome message
+        System.out.println("\n\n\n\n\n\n\n\n\n\n"); // to clear the console for better readability   
         System.out.println("Welcome to the Memory Game!");
         System.out.println("Match all pairs to win. Enter -1 at any time to quit.");
         System.out.println("Board positions are numbered 1 to 8.");
-        System.out.println("Let's start the game!");
+        System.out.println("Let's start the game!\n\n");
 
 
         try{
