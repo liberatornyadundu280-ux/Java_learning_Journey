@@ -25,6 +25,9 @@
     * for example if you have a class demoObject with id and description fields
     * you can override equals() and hashcode() methods as shown below
  */
+
+// a Cloneable class
+
 class demoObject {
     int id;
     String description;
