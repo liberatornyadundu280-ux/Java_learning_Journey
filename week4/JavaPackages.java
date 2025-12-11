@@ -38,7 +38,7 @@ public class GFG{
 }
 
 // illustrating the user defined functions
-// package com.myapp; ------> we will be stating that this class i goin to be imported in other classes
+// package com.myapp; ------> we will be stating that this class i going to be imported in other classes
 
 public class Helper {
     public static void show() {
@@ -57,6 +57,6 @@ public class Test {
 public class JavaPackages {
     public static void main(String[] args)
     {
-        System.out.println("This code is just a hint of the java pakages i will be using in the future\n so just get familia with them ");
+        System.out.println("This code is just a hint of the java packages i will be using in the future\n so just get familia with them ");
     }
 }

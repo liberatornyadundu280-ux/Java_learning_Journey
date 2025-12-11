@@ -10,7 +10,8 @@ public class InputValidator {
     // --- Version 1: Basic Integer Validation (No Range) ---
     // User can call: InputValidator.getValidInt("Age: ");
     public static int getValidInt(String prompt) {
-        // Calls the full version, using the smallest and largest possible integers for the range.
+        // Calls the full version, using the smallest and largest possible integers for
+        // the range.
         return getValidInt(prompt, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
@@ -23,10 +24,12 @@ public class InputValidator {
 
     // --- Version 3: Full Integer Validation (Min and Max) ---
     /**
-     * Prompts the user for an integer until a valid number within the range is provided.
+     * Prompts the user for an integer until a valid number within the range is
+     * provided.
+     * 
      * @param prompt The message displayed to the user.
-     * @param min The minimum acceptable integer value (inclusive).
-     * @param max The maximum acceptable integer value (inclusive).
+     * @param min    The minimum acceptable integer value (inclusive).
+     * @param max    The maximum acceptable integer value (inclusive).
      * @return A valid integer provided by the user.
      */
     public static int getValidInt(String prompt, int min, int max) {
