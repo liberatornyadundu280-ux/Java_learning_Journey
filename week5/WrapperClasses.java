@@ -58,8 +58,8 @@ public class WrapperClasses {
         Character ch1 = 'a';
 
         // unboxing - Character object to primitive conversion
-        char a1 = ch;
-        System.out.println(a);
+        char a1 = ch1;
+        System.out.println(a1);
         ArrayList<Integer> arrayList1 = new ArrayList<Integer>();
         arrayList1.add(24);
 
