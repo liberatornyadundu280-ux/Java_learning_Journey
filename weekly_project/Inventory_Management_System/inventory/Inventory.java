@@ -1,9 +1,8 @@
-package inventory.items;
+package inventory;
 
 import java.util.*;
-import inventory.item.Item;
 
-public class Inventory<T> {
+public class Inventory<T> implements Interface {
     private List<T> items;
 
     public Inventory() {
@@ -11,10 +10,11 @@ public class Inventory<T> {
     }
 
     // Add an item to the inventory
+    @Override
     public void addItem() {
         Item newItem = new Item();
         if (newItem != null && !check(newItem.getId)) {
-            inventoryList.add(newItem);
+            items.add(newItem);
             System.out.println("Item successfully saved to inventory!");
         } else {
             System.out.println(
@@ -22,9 +22,9 @@ public class Inventory<T> {
                             : "Entry cancelled. Nothing was saved."));
             return;
         }
-        items.add(newItem);
     }
 
+    // we are checking the existence of the id/ item
     public boolean check(int id) {
         for (T t : items) {
             if (t.getId == id)
@@ -34,26 +34,28 @@ public class Inventory<T> {
     }
 
     // Remove an item from the inventory
-    public void removeItem(T item) {
-        try {
-            if (!items.contains(item)) {
-                throw new IllegalArgumentException("Item not found in inventory.");
+    @Override
+    public void removeItem(int id) {
+        for (T t : items) {
+            if (t.getId == id) {
+                Item item = t;
+                items.remove(t);
+                System.out.println("Item removed successfully: " + item);
             }
-            items.remove(item);
-            System.out.println("Item removed successfully: " + item);
-        } catch (Exception e) {
-            System.out.println("Error removing item: " + e.getMessage());
         }
+        System.out.println("Error removing item: Item not found in inventory.  ");
+
     }
 
     // View all items in the inventory
+    @Override
     public void viewItems() {
         if (items.isEmpty()) {
             System.out.println("Inventory is empty.");
         } else {
             System.out.println("Inventory items:");
             for (T item : items) {
-                System.out.println(item);
+                System.out.println(item.toString());
             }
         }
     }

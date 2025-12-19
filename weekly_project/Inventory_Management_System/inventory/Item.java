@@ -1,4 +1,4 @@
-package inventory.item;
+package inventory;
 
 import java.util.*;
 
@@ -8,22 +8,26 @@ public class Item {
     private int quantity;
     private double price;
     private String category;
-    private int reOrderLevel;
+    private int reStock;
     private static int counterId = 1000;
 
     // Constructor
     public Item() {
         category = "General";
-        reOrderLevel = 3;
+        reStock = 3;
         createItemWizard();
         id = counterId++;
     }
 
+    /*
+     * I created this method so as i can be able to take input without error and all
+     * mandatory members are set here by force
+     */
     public Item createItemWizard() {
         Scanner sc = new Scanner(System.in);
         Item newItem = new Item();
 
-        System.out.println("Type 'quit' at any time to cancel.");
+        System.out.println("You type 'quit' at any time to cancel.");
 
         // ----- MANDATORY FIELD: NAME ---
         while (true) {
@@ -38,6 +42,7 @@ public class Item {
             }
             System.out.println("Error: Name cannot be empty!");
         }
+
         // ------ Price is mandatory field------
         while (true) {
             System.out.print("Enter Item Price (Mandatory): ");
@@ -52,7 +57,7 @@ public class Item {
                 continue;
             }
             newItem.setPrice(sc.nextInt());
-            sc.nextLine();
+            sc.nextLine();// clearing the buffer
             break;
         }
 
@@ -102,9 +107,11 @@ public class Item {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-    public void setCategory(String cat){
-        category=cat;
+
+    public void setCategory(String cat) {
+        category = cat;
     }
+
     public double getPrice() {
         return price;
     }
@@ -113,14 +120,18 @@ public class Item {
         this.price = price;
     }
 
-    public String Category() {
+    public String getCategory() {
         return category;
     }
 
-    public boolean level() {
-        return reOderLevel < quantity;
+    public boolean isStock() {
+        return reStock < quantity;
     }
 
+    /*
+     * this methid is going to be called whena used wants to see the details of the
+     * specific item called hence it overrides the already existing default toString
+     */
     @Override
     public String toString() {
         return "Item{name='" + name + "', quantity=" + quantity + ", price=" + price + "category = " + category
