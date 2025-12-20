@@ -15,7 +15,6 @@ public class Item {
     public Item() {
         category = "General";
         reStock = 3;
-        createItemWizard();
         id = counterId++;
     }
 
@@ -23,10 +22,7 @@ public class Item {
      * I created this method so as i can be able to take input without error and all
      * mandatory members are set here by force
      */
-    public Item createItemWizard() {
-        Scanner sc = new Scanner(System.in);
-        Item newItem = new Item();
-
+    public void createItemWizard(Scanner sc) {
         System.out.println("You type 'quit' at any time to cancel.");
 
         // ----- MANDATORY FIELD: NAME ---
@@ -35,9 +31,9 @@ public class Item {
             String input = sc.nextLine();
 
             if (input.equalsIgnoreCase("quit"))
-                return null; // Exit without saving
+                return; // Exit without saving
             if (!input.trim().isEmpty()) {// removing spaces
-                newItem.setName(input);
+                this.name = input;
                 break; // Valid input, move to next
             }
             System.out.println("Error: Name cannot be empty!");
@@ -49,42 +45,37 @@ public class Item {
             String input = sc.nextLine();
 
             if (input.equalsIgnoreCase("quit"))
-                return null; // Exit without saving
-            if (!sc.hasNextInt()) {
-                if (sc.next().equalsIgnoreCase("quit"))
-                    return null;
-                System.out.println("Error: Please enter a number.");
-                continue;
+                return; // Exit without saving
+            try {
+                price = Double.parseDouble(input);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Please enter a whole number." + e);
             }
-            newItem.setPrice(sc.nextInt());
-            sc.nextLine();// clearing the buffer
-            break;
         }
 
         // --- MANDATORY FIELD: QUANTITY ---
         while (true) {
             System.out.print("Enter Quantity: ");
-            if (!sc.hasNextInt()) {
-                if (sc.next().equalsIgnoreCase("quit"))
-                    return null;
-                System.out.println("Error: Please enter a number.");
-                continue;
+            String input = sc.nextLine();
+            if (input.equalsIgnoreCase("quit"))
+                return;
+            try {
+                this.quantity = Integer.parseInt(input);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Please enter a whole number." + e);
             }
-            newItem.setQuantity(sc.nextInt());
-            sc.nextLine(); // clear buffer
-            break;
         }
 
         // --- OPTIONAL FIELD: CATEGORY ---
         System.out.print("Enter Category (Press Enter for default 'General'): ");
         String cat = sc.nextLine();
         if (cat.equalsIgnoreCase("quit"))
-            return null;
+            return;
         if (!cat.trim().isEmpty()) {
-            newItem.setCategory(cat);
+            category = cat;
         }
-        sc.clear();
-        return newItem; // Finally return the finished object
     }
 
     // Getter and setter methods
@@ -134,7 +125,7 @@ public class Item {
      */
     @Override
     public String toString() {
-        return "Item{name='" + name + "', quantity=" + quantity + ", price=" + price + "category = " + category
-                + "reOderLevel = " + reOderLevel + "}";
+        return String.format("ID: %d | Name: %-10s | Price: %.2f | Qty: %d | Category: %-10s",
+                id, name, price, quantity, category);
     }
 };

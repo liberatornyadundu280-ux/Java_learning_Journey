@@ -1,17 +1,15 @@
 package inventory;
 
-public interface Interface {
+import java.util.Scanner;
 
-    public void addItem();
+public interface Interface {
+    public void addItem(Item item);
 
     public void removeItem(int id);
 
     public void viewItems();
 
-    public void getItem();
+    public void checkLowStock();
 
-    public boolean isStock();
-
-    public String getCategory();
-
+    void findItem(Inventory inventory, Scanner sc);
 }
