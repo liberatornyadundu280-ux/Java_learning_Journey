@@ -1,4 +1,5 @@
 
+// Implements the sorted interface
 /*
 A TreeSet is a collection class that stores unique elements in a sorted order. 
 It is part of java.util package that implements the SortedSet interface, and internally uses a Red-Black tree to maintain sorting.

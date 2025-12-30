@@ -41,3 +41,12 @@ public class hash_Set {
             System.out.print(element + " , ");
     }
 }
+/*
+ * LinkedHashSet in Java implements the Set interface of the Collections
+ * Framework.
+ * 
+ * It combines the functionalities of a HashSet with a doubly-linked list to
+ * maintain the insertion order of elements.
+ * LinkedHashSet stores unique elements only and allows a single null.
+ * Implements Set, Cloneable and Serializable interfaces.
+ */
