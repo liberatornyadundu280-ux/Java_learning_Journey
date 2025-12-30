@@ -71,7 +71,6 @@ public class QueueInterfaceAndClasses {
  * done in constant time O(1).
  * ArrayDeque is not Thread-Safe
  */
-import java.util.*;
 
 public class Geeks {
     public static void main(String[] args) {
@@ -171,7 +170,6 @@ public class Geeks {
  * toArray?(T[] a) Returns an array containing all of the elements in this
  * queue; the runtime type of the returned array is that of the specified array.
  */
-import java.util.*;
 
 public class Geeks {
     public static void main(String args[]) {
