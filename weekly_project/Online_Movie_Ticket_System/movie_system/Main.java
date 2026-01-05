@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.time.LocalDateTime;
 
-public class MovieTicketBookingSystem {
+public class Main {
     private List<Movie> movies = new CopyOnWriteArrayList<>();
     private Set<Theater> theaters = new CopyOnWriteArraySet<>();
     private Map<Theater, List<Showtime>> theaterShowtimes = new ConcurrentHashMap<>();
@@ -65,7 +65,7 @@ public class MovieTicketBookingSystem {
     }
 
     public static void main(String[] args) {
-        MovieTicketBookingSystem system = new MovieTicketBookingSystem();
+        Main system = new Main();
 
         // Create movies
         Movie movie1 = new Movie("Inception", "Sci-Fi", 148);
