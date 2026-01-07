@@ -9,8 +9,4 @@ Projects included (excluding the Online Movie Ticket System which already has it
 - `The_Memory_game.java`, `Tic_tac_toe_game_week1.java` — small standalone games in the root.
 
 How to explore
-- Change into a project folder, compile its `.java` files and run the main class as shown in each project's README.
-
-If you'd like, I can also:
-- Add sample inputs or test cases for each project.
-- Create a unified top-level README with badges and quick run buttons.
+- Change into a project folder, compile its `.java` files and run the main class as shown in each project's README
