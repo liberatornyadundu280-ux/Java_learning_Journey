@@ -12,3 +12,8 @@ Projects included (excluding the Online Movie Ticket System which already has it
 How to explore
 
 - Change into a project folder, compile its `.java` files and run the main class as shown in each project's README.
+
+If you'd like, I can also:
+
+- Add sample inputs or test cases for each project.
+- Create a unified top-level README with badges and quick run buttons.
