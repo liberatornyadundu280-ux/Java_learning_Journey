@@ -45,9 +45,3 @@ If a package is used, compile/run from the repository root and include the packa
 - Convert exercises into tiny projects to apply multiple concepts (OOP + collections + I/O).
 - Add unit tests (JUnit) as you go — it helps verify understanding.
 - Keep a short weekly note (single file) summarizing what you learned and any questions.
-
-**Next steps I can help with**
-
-- Create a `.gitignore` to exclude `*.class`, `node_modules/`, and IDE files.
-- Generate a contents index linking each `weekN` folder and important files.
-- Expand the `Online_Movie_Ticket_System` README with runnable examples and sample outputs.
