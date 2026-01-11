@@ -7,20 +7,30 @@ import java.util.Objects;
 
 public class Theater {
 
+    private final int theaterId;
     private final String name;
     private final String location;
     private final List<Hall> halls;
 
-    public Theater(String name, String location) {
+    public Theater(int theaterId, String name, String location) {
+        if (theaterId <= 0) {
+            throw new IllegalArgumentException("Theater ID must be positive");
+        }
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Theater name must not be null or blank");
+            throw new IllegalArgumentException("Theater name must not be blank");
         }
         if (location == null || location.isBlank()) {
-            throw new IllegalArgumentException("Theater location must not be null or blank");
+            throw new IllegalArgumentException("Location must not be blank");
         }
+
+        this.theaterId = theaterId;
         this.name = name;
         this.location = location;
         this.halls = new ArrayList<>();
+    }
+
+    public int getTheaterId() {
+        return theaterId;
     }
 
     public String getName() {
@@ -31,37 +41,18 @@ public class Theater {
         return location;
     }
 
-    /**
-     * Adds a hall to this theater.
-     * Duplicate halls are not allowed.
-     */
     public void addHall(Hall hall) {
         if (hall == null) {
-            throw new IllegalArgumentException("Hall must not be null");
+            throw new IllegalArgumentException("Hall cannot be null");
         }
         if (halls.contains(hall)) {
-            throw new IllegalArgumentException("Duplicate hall is not allowed");
+            throw new IllegalArgumentException("Duplicate hall");
         }
         halls.add(hall);
     }
 
-    /**
-     * Returns an unmodifiable list of halls.
-     */
     public List<Hall> getHalls() {
         return Collections.unmodifiableList(halls);
-    }
-
-    /**
-     * Finds a hall by its identifier (e.g., hall number).
-     */
-    public Hall getHallByNumber(int hallNumber) {
-        for (Hall hall : halls) {
-            if (hall.getHallNumber() == hallNumber) {
-                return hall;
-            }
-        }
-        return null; // handled by caller
     }
 
     @Override
@@ -71,19 +62,19 @@ public class Theater {
         if (!(o instanceof Theater))
             return false;
         Theater theater = (Theater) o;
-        return name.equals(theater.name) &&
-                location.equals(theater.location);
+        return theaterId == theater.theaterId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, location);
+        return Objects.hash(theaterId);
     }
 
     @Override
     public String toString() {
         return "Theater{" +
-                "name='" + name + '\'' +
+                "id=" + theaterId +
+                ", name='" + name + '\'' +
                 ", location='" + location + '\'' +
                 '}';
     }

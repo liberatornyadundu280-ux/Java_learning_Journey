@@ -28,6 +28,10 @@ public class Seat {
         this.booked = true;
     }
 
+    public void unbook() {
+        this.booked = false;
+    }
+
     @Override
     public String toString() {
         return "Seat{" +

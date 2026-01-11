@@ -11,26 +11,25 @@ public class Ticket {
 
     private final String ticketId;
     private final Showtime showtime;
-    private final List<Seat> seats;
+    private final List<Integer> seats;
     private final LocalDateTime bookingTime;
     private boolean cancelled;
 
-    public Ticket(Showtime showtime, List<Integer> seatNumbers) {
-        if (showtime == null || seatNumbers == null || seatNumbers.isEmpty()) {
-            throw new IllegalArgumentException("Invalid ticket creation request");
-        }
-
+    // ADD this constructor to Ticket
+    public Ticket(Showtime showtime, List<Integer> seats) {
         this.ticketId = UUID.randomUUID().toString();
         this.showtime = showtime;
+        this.seats = seats;
         this.bookingTime = LocalDateTime.now();
         this.cancelled = false;
+    }
 
-        // Resolve seat numbers into actual Seat objects
-        List<Seat> resolvedSeats = new ArrayList<>();
-        for (int seatNumber : seatNumbers) {
-            resolvedSeats.add(showtime.getSeats().get(seatNumber - 1));
-        }
-        this.seats = Collections.unmodifiableList(resolvedSeats);
+    public Ticket(String Id, Showtime showtime, List<Integer> seats, LocalDateTime bookingTime, boolean cancelled) {
+        this.ticketId = Id;
+        this.showtime = showtime;
+        this.seats = seats;
+        this.bookingTime = bookingTime;
+        this.cancelled = cancelled;
     }
 
     public String getTicketId() {
@@ -41,7 +40,7 @@ public class Ticket {
         return showtime;
     }
 
-    public List<Seat> getSeats() {
+    public List<Integer> getSeats() {
         return seats;
     }
 
