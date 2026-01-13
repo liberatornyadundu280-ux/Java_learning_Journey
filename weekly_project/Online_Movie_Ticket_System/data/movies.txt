@@ -4,3 +4,7 @@
 4|The Dark Knight|Action|152
 5|Avengers Endgame|Action|181
 6|The Godfather|Crime|175
+7|Fast and furious|fiction|190
+8|Avengers|Fantasy|120
+9|Fat|comedy|60
+10|Preditor|Horror|170
