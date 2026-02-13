@@ -9,6 +9,24 @@ public class Inventory implements Interface {
 
     public Inventory() {
         items = new ArrayList<>();
+        prefillDefaultItems();
+    }
+
+    private void prefillDefaultItems() {
+        items.add(createDefaultItem("Notebook", 45.0, 30, "Stationery"));
+        items.add(createDefaultItem("Blue Pen", 10.0, 80, "Stationery"));
+        items.add(createDefaultItem("Pencil Box", 85.0, 20, "Stationery"));
+        items.add(createDefaultItem("Eraser", 5.0, 100, "Stationery"));
+        items.add(createDefaultItem("Geometry Box", 150.0, 15, "Stationery"));
+    }
+
+    private Item createDefaultItem(String name, double price, int quantity, String category) {
+        Item item = new Item();
+        item.setName(name);
+        item.setPrice(price);
+        item.setQuantity(quantity);
+        item.setCategory(category);
+        return item;
     }
 
     // Add an item to the inventory
