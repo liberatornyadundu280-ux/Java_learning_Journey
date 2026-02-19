@@ -13,11 +13,33 @@ public class Inventory implements Interface {
     }
 
     private void prefillDefaultItems() {
+        // Stationery
         items.add(createDefaultItem("Notebook", 45.0, 30, "Stationery"));
         items.add(createDefaultItem("Blue Pen", 10.0, 80, "Stationery"));
         items.add(createDefaultItem("Pencil Box", 85.0, 20, "Stationery"));
         items.add(createDefaultItem("Eraser", 5.0, 100, "Stationery"));
         items.add(createDefaultItem("Geometry Box", 150.0, 15, "Stationery"));
+
+        // Electronics
+        items.add(createDefaultItem("Calculator", 499.0, 12, "Electronics"));
+        items.add(createDefaultItem("USB Drive 32GB", 399.0, 18, "Electronics"));
+        items.add(createDefaultItem("Wired Mouse", 650.0, 10, "Electronics"));
+
+        // Books
+        items.add(createDefaultItem("Math Textbook", 320.0, 14, "Books"));
+        items.add(createDefaultItem("Science Guide", 280.0, 16, "Books"));
+
+        // Accessories
+        items.add(createDefaultItem("Backpack", 899.0, 9, "Accessories"));
+        items.add(createDefaultItem("Water Bottle", 120.0, 25, "Accessories"));
+
+        // Cleaning
+        items.add(createDefaultItem("Hand Sanitizer", 95.0, 22, "Cleaning"));
+        items.add(createDefaultItem("Tissue Pack", 40.0, 35, "Cleaning"));
+
+        // Snacks
+        items.add(createDefaultItem("Granola Bar", 30.0, 50, "Snacks"));
+        items.add(createDefaultItem("Juice Box", 25.0, 45, "Snacks"));
     }
 
     private Item createDefaultItem(String name, double price, int quantity, String category) {
