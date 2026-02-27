@@ -1,0 +1,11 @@
+# Maven / Java build output
+target/
+out/
+
+# Local runtime data
+data/*.db
+data/*.db-*
+
+# IDE
+.vscode/
+*.class

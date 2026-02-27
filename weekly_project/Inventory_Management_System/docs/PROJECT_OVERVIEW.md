@@ -1,96 +1,64 @@
 # Quantum Stock - Inventory Management System
 
-A console-based Java inventory manager for basic CRUD-style operations on products.
+Console-based Java inventory manager evolving into a capstone-ready project.
 
-## Overview
+## Stage Status
 
-This project is organized as a small OOP learning project with these capabilities:
-- Add product
-- Remove product by ID
-- List all products
-- Search products (ID, name, category, or price range)
-- Show low-stock report
-- Start with prefilled default school/stationery inventory items
+- Stage 1: Completed (bug fixes, cleanup, architecture tidying).
+- Stage 2: In progress (SQL backend + authentication + user management + stock operations + audit/transaction reports).
 
-## Project Structure
+## Stage 2 Additions
 
-- `Main.java`: Entry point, menu loop, and user interaction routing.
-- `Inventory.java`: Core inventory logic and in-memory `List<Item>` storage.
-- `Item.java`: Product model, auto-ID generation, and interactive item creation wizard.
-- `InputValidator.java`: Reusable integer input validation utility.
-- `InventoryOperations.java`: Inventory operation contract used by `Inventory`.
+- JDBC connection management (`Database.java`)
+- Startup schema/seed bootstrap (`DatabaseInitializer.java`)
+- SQL repositories:
+  - `ItemRepository.java`
+  - `UserRepository.java`
+  - `AuditRepository.java`
+- Authentication service (`AuthService.java`)
+- Secure password hashing utility (`PasswordUtil.java`, PBKDF2)
+- SQL scripts under `src/main/resources/db/`
+  - `schema.sql`
+  - `seed.sql`
 
-## Default Seed Data
+## Tables
 
-On startup, inventory is prefilled with:
-- Notebook
-- Blue Pen
-- Pencil Box
-- Eraser
-- Geometry Box
+- `items`
+  - `id`, `name`, `price`, `quantity`, `category`, `restock_level`
+- `users`
+  - `id`, `username`, `password_hash`, `role`, `created_at`
+- `inventory_transactions`
+  - stock movement ledger (`ADJUSTMENT`, `SALE`) with before/after quantities and actor user
+- `audit_logs`
+  - security/operations event trail (login, user management, stock edits, sales)
 
-All seeded under category `Stationery`.
+## Runtime Notes
 
-## How It Works
-
-1. App starts in `Main.main`.
-2. `Inventory` is instantiated and immediately prefilled.
-3. A menu loop accepts options `1` to `6`.
-4. Each option calls the corresponding method in `Inventory`.
-5. Data is stored in memory only (no database/file persistence).
-
-## Menu Options
-
-1. `Add Product`: Launches `Item.createItemWizard(...)`.
-2. `Remove Product`: Takes ID and removes matching item.
-3. `View All Inventory`: Prints all items.
-4. `Find Product`: Supports search by:
-   - `a` ID
-   - `b` Name (contains, case-insensitive)
-   - `c` Category (exact, case-insensitive)
-   - `d` Price range
-5. `Low Stock Alert`: Prints products considered low stock by current rule.
-6. `Exit System`: Ends program.
+- Default database: `jdbc:sqlite:data/inventory.db`
+- Uses Maven dependency `org.xerial:sqlite-jdbc`
+- App requires login before menu.
+- Default bootstrapped admin account:
+  - Username: `admin`
+  - Password: `admin123`
+- Roles:
+  - `ADMIN`: full system + user/stock management + report access
+  - `STAFF`: operational flows (view/search/report low stock, record sales, self password change)
+- Admin report screens:
+  - Inventory transactions (`all`, `today`, `by user id`)
+  - Audit logs (`all`, `today`, `by user id`)
+- Security:
+  - Passwords are not viewable in plaintext.
+  - Passwords are stored hashed only.
 
 ## Build and Run
 
-From the parent folder of `inventory/`:
-
 ```powershell
-javac inventory/*.java
-java inventory.Main
+mvn -q -DskipTests compile
+mvn -q exec:java
 ```
 
-If you are already inside the `inventory` folder:
+## Planned Next Work
 
-```powershell
-javac *.java
-```
-
-Then run from the parent directory with:
-
-```powershell
-java inventory.Main
-```
-
-## Design Notes
-
-- IDs are auto-generated in `Item` starting at `1000` using static counter `counterId`.
-- Search uses Java Streams with `Predicate<Item>`.
-- `InputValidator` uses a shared static `Scanner` and supports overloads with optional range constraints.
-
-## Current Limitations / Known Issues
-
-- `Low stock` logic appears inverted in `Item.isStock()`:
-  - Current check: `reStock < quantity`
-  - This flags high quantity as low-stock.
-- If user types `quit` inside the add-item wizard, control returns to menu flow, but the partially empty `Item` object is still passed to `addItem(...)`.
-- No persistence layer (data resets each run).
-- Search number parsing in `findItem(...)` can throw if invalid numeric text is entered.
-
-## Suggested Next Improvements
-
-1. Fix low-stock rule to compare `quantity <= reStock`.
-2. Prevent add operation when wizard is cancelled.
-3. Add file or DB persistence.
-4. Centralize all input through validator for safer numeric parsing.
+1. Add unit/integration tests for repository/auth methods.
+2. Add migration/versioning scripts.
+3. Optional: CSV export for reports.

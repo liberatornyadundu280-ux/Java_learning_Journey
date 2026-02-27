@@ -3,85 +3,102 @@ package inventory;
 import java.util.Scanner;
 
 public class Item {
-    private String name;
     private int id;
+    private String name;
     private int quantity;
     private double price;
     private String category;
-    private int reStock;
-    private static int counterId = 1000;
+    private int restockLevel;
 
-    // Constructor
     public Item() {
-        category = "General";
-        reStock = 3;
-        id = counterId++;
+        this.id = 0;
+        this.category = "General";
+        this.restockLevel = 3;
     }
 
-    /*
-     * I created this method so as i can be able to take input without error and all
-     * mandatory members are set here by force
-     */
+    public Item(int id, String name, int quantity, double price, String category, int restockLevel) {
+        this.id = id;
+        this.name = name;
+        this.quantity = quantity;
+        this.price = price;
+        this.category = category;
+        this.restockLevel = restockLevel;
+    }
+
     public boolean createItemWizard(Scanner sc) {
         System.out.println("You type 'quit' at any time to cancel.");
 
-        // ----- MANDATORY FIELD: NAME ---
         while (true) {
             System.out.print("Enter Item Name (Mandatory): ");
             String input = sc.nextLine();
 
-            if (input.equalsIgnoreCase("quit"))
-                return false; // Exit without saving
-            if (!input.trim().isEmpty()) {// removing spaces
+            if (input.equalsIgnoreCase("quit")) {
+                return false;
+            }
+            if (!input.trim().isEmpty()) {
                 this.name = input;
-                break; // Valid input, move to next
+                break;
             }
             System.out.println("Error: Name cannot be empty!");
         }
 
-        // ------ Price is mandatory field------
         while (true) {
             System.out.print("Enter Item Price (Mandatory): ");
             String input = sc.nextLine();
 
-            if (input.equalsIgnoreCase("quit"))
-                return false; // Exit without saving
+            if (input.equalsIgnoreCase("quit")) {
+                return false;
+            }
             try {
-                price = Double.parseDouble(input);
+                double parsed = Double.parseDouble(input);
+                if (parsed < 0) {
+                    System.out.println("Error: Price cannot be negative.");
+                    continue;
+                }
+                this.price = parsed;
                 break;
             } catch (NumberFormatException e) {
-                System.out.println("Error: Please enter a whole number." + e);
+                System.out.println("Error: Please enter a valid number.");
             }
         }
 
-        // --- MANDATORY FIELD: QUANTITY ---
         while (true) {
             System.out.print("Enter Quantity: ");
             String input = sc.nextLine();
-            if (input.equalsIgnoreCase("quit"))
+            if (input.equalsIgnoreCase("quit")) {
                 return false;
+            }
             try {
-                this.quantity = Integer.parseInt(input);
+                int parsed = Integer.parseInt(input);
+                if (parsed < 0) {
+                    System.out.println("Error: Quantity cannot be negative.");
+                    continue;
+                }
+                this.quantity = parsed;
                 break;
             } catch (NumberFormatException e) {
-                System.out.println("Error: Please enter a whole number." + e);
+                System.out.println("Error: Please enter a whole number.");
             }
         }
 
-        // --- OPTIONAL FIELD: CATEGORY ---
         System.out.print("Enter Category (Press Enter for default 'General'): ");
         String cat = sc.nextLine();
-        if (cat.equalsIgnoreCase("quit"))
+        if (cat.equalsIgnoreCase("quit")) {
             return false;
+        }
         if (!cat.trim().isEmpty()) {
             category = cat;
         }
+
         return true;
     }
 
-    // Getter and setter methods
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -100,10 +117,6 @@ public class Item {
         this.quantity = quantity;
     }
 
-    public void setCategory(String cat) {
-        category = cat;
-    }
-
     public double getPrice() {
         return price;
     }
@@ -116,17 +129,25 @@ public class Item {
         return category;
     }
 
-    public boolean isLowStock() {
-        return quantity <= reStock;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    /*
-     * this methid is going to be called whena used wants to see the details of the
-     * specific item called hence it overrides the already existing default toString
-     */
+    public int getRestockLevel() {
+        return restockLevel;
+    }
+
+    public void setRestockLevel(int restockLevel) {
+        this.restockLevel = restockLevel;
+    }
+
+    public boolean isLowStock() {
+        return quantity <= restockLevel;
+    }
+
     @Override
     public String toString() {
-        return String.format("ID: %d | Name: %-10s | Price: %.2f | Qty: %d | Category: %-10s",
+        return String.format("ID: %d | Name: %-15s | Price: %.2f | Qty: %d | Category: %-12s",
                 id, name, price, quantity, category);
     }
-};
+}
