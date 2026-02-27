@@ -15,7 +15,7 @@ INSERT INTO items (name, price, quantity, category, restock_level) VALUES
 ('Tissue Pack', 40.0, 35, 'Cleaning', 3),
 ('Granola Bar', 30.0, 50, 'Snacks', 3),
 ('Juice Box', 25.0, 45, 'Snacks', 3);
-INSERT INTO users (username, password, role) VALUES
+INSERT INTO users (username, password_hash, role) VALUES
 ('admin', 'admin123', 'ADMIN'),
-('user1', 'user123', 'USER'),
-('user2', 'user123', 'USER');
+('user1', 'user123', 'STAFF'),
+('user2', 'user123', 'STAFF');
