@@ -1,10 +1,13 @@
 package inventory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class Inventory implements Interface {
+public class Inventory implements InventoryOperations {
     private List<Item> items;
 
     public Inventory() {
@@ -54,15 +57,18 @@ public class Inventory implements Interface {
     // Add an item to the inventory
     @Override
     public void addItem(Item newItem) {
-        if (newItem != null && !check(newItem.getId())) {
-            items.add(newItem);
-            System.out.println("Item successfully saved to inventory!");
-        } else {
-            System.out.println(
-                    check(newItem.getId()) ? "item already in the inventory. Nothing is saved"
-                            : "Entry cancelled. Nothing was saved.");
+        if (newItem == null) {
+            System.out.println("Entry cancelled. Nothing was saved.");
             return;
         }
+
+        if (check(newItem.getId())) {
+            System.out.println("Item already in the inventory. Nothing was saved.");
+            return;
+        }
+
+        items.add(newItem);
+        System.out.println("Item successfully saved to inventory!");
     }
 
     // we are checking the existence of the id/ item
@@ -77,10 +83,11 @@ public class Inventory implements Interface {
     // Remove an item from the inventory
     @Override
     public void removeItem(int id) {
-        for (Item t : items) {
-            if (t.getId() == id) {
-                Item item = t;
-                items.remove(t);
+        Iterator<Item> iterator = items.iterator();
+        while (iterator.hasNext()) {
+            Item item = iterator.next();
+            if (item.getId() == id) {
+                iterator.remove();
                 System.out.println("Item removed successfully: " + item);
                 return;
             }
@@ -104,7 +111,7 @@ public class Inventory implements Interface {
 
     // You can use this for names, prices, or IDs
     @Override
-    public void findItem(Inventory inventory, Scanner sc) {
+    public void findItem(Scanner sc) {
         System.out.println("\n--- SEARCH BY ---");
         System.out.println("a. ID | b. Name | c. Category | d. Price Range");
         System.out.print("Choose option: ");
@@ -112,34 +119,31 @@ public class Inventory implements Interface {
 
         switch (subChoice) {
             case "a":
-                System.out.print("Enter ID: ");
-                int id = Integer.parseInt(sc.nextLine());
+                int id = InputValidator.getValidInt(sc, "Enter ID: ");
                 // We pass the rule: "Item ID must match input ID"
-                inventory.displaySearchResults(inventory.search(item -> item.getId() == id));
+                displaySearchResults(search(item -> item.getId() == id));
                 break;
 
             case "b":
                 System.out.print("Enter Name: ");
                 String name = sc.nextLine();
                 // Rule: "Item name must contain the search string"
-                inventory.displaySearchResults(
-                        inventory.search(item -> item.getName().toLowerCase().contains(name.toLowerCase())));
+                displaySearchResults(
+                        search(item -> item.getName().toLowerCase().contains(name.toLowerCase())));
                 break;
 
             case "c":
                 System.out.print("Enter Category: ");
                 String cat = sc.nextLine();
-                inventory.displaySearchResults(inventory.search(item -> item.getCategory().equalsIgnoreCase(cat)));
+                displaySearchResults(search(item -> item.getCategory().equalsIgnoreCase(cat)));
                 break;
 
             case "d":
-                System.out.print("Enter Min Price: ");
-                double min = Double.parseDouble(sc.nextLine());
-                System.out.print("Enter Max Price: ");
-                double max = Double.parseDouble(sc.nextLine());
+                double min = InputValidator.getValidDouble(sc, "Enter Min Price: ", 0.0);
+                double max = InputValidator.getValidDouble(sc, "Enter Max Price: ", min);
                 // Rule: "Price must be between min and max"
-                inventory.displaySearchResults(
-                        inventory.search(item -> item.getPrice() >= min && item.getPrice() <= max));
+                displaySearchResults(
+                        search(item -> item.getPrice() >= min && item.getPrice() <= max));
                 break;
 
             default:
@@ -174,7 +178,7 @@ public class Inventory implements Interface {
             System.out.println("Inventory items with low stock:");
             boolean f = true;
             for (Item item : items) {
-                if (item.isStock()) {
+                if (item.isLowStock()) {
                     System.out.println(item.toString());
                     f = false;
                 }

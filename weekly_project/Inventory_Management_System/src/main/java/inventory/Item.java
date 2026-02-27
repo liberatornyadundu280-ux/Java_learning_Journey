@@ -1,6 +1,6 @@
 package inventory;
 
-import java.util.*;
+import java.util.Scanner;
 
 public class Item {
     private String name;
@@ -22,7 +22,7 @@ public class Item {
      * I created this method so as i can be able to take input without error and all
      * mandatory members are set here by force
      */
-    public void createItemWizard(Scanner sc) {
+    public boolean createItemWizard(Scanner sc) {
         System.out.println("You type 'quit' at any time to cancel.");
 
         // ----- MANDATORY FIELD: NAME ---
@@ -31,7 +31,7 @@ public class Item {
             String input = sc.nextLine();
 
             if (input.equalsIgnoreCase("quit"))
-                return; // Exit without saving
+                return false; // Exit without saving
             if (!input.trim().isEmpty()) {// removing spaces
                 this.name = input;
                 break; // Valid input, move to next
@@ -45,7 +45,7 @@ public class Item {
             String input = sc.nextLine();
 
             if (input.equalsIgnoreCase("quit"))
-                return; // Exit without saving
+                return false; // Exit without saving
             try {
                 price = Double.parseDouble(input);
                 break;
@@ -59,7 +59,7 @@ public class Item {
             System.out.print("Enter Quantity: ");
             String input = sc.nextLine();
             if (input.equalsIgnoreCase("quit"))
-                return;
+                return false;
             try {
                 this.quantity = Integer.parseInt(input);
                 break;
@@ -72,10 +72,11 @@ public class Item {
         System.out.print("Enter Category (Press Enter for default 'General'): ");
         String cat = sc.nextLine();
         if (cat.equalsIgnoreCase("quit"))
-            return;
+            return false;
         if (!cat.trim().isEmpty()) {
             category = cat;
         }
+        return true;
     }
 
     // Getter and setter methods
@@ -115,8 +116,8 @@ public class Item {
         return category;
     }
 
-    public boolean isStock() {
-        return reStock < quantity;
+    public boolean isLowStock() {
+        return quantity <= reStock;
     }
 
     /*

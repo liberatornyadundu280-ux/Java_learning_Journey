@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         // Use a single Scanner for the whole app to avoid buffer issues
         Scanner scanner = new Scanner(System.in);
-        Inventory myInventory = new Inventory(); // Pass scanner to manager
+        Inventory myInventory = new Inventory();
 
         boolean exit = false;
 
@@ -29,18 +29,22 @@ public class Main {
             switch (choice) {
                 case "1":
                     Item newItem = new Item();
-                    newItem.createItemWizard(scanner);
-                    myInventory.addItem(newItem);
+                    boolean isCreated = newItem.createItemWizard(scanner);
+                    if (isCreated) {
+                        myInventory.addItem(newItem);
+                    } else {
+                        System.out.println("Entry cancelled. Nothing was saved.");
+                    }
                     break;
                 case "2":
-                    int id = InputValidator.getValidInt("Enter item id to remove: ");
+                    int id = InputValidator.getValidInt(scanner, "Enter item id to remove: ");
                     myInventory.removeItem(id);
                     break;
                 case "3":
                     myInventory.viewItems();
                     break;
                 case "4":
-                    myInventory.findItem(myInventory, scanner);
+                    myInventory.findItem(scanner);
                     break;
                 case "5":
                     myInventory.checkLowStock();

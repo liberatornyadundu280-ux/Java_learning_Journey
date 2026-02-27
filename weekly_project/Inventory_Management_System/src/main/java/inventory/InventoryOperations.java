@@ -2,7 +2,7 @@ package inventory;
 
 import java.util.Scanner;
 
-public interface Interface {
+public interface InventoryOperations {
     public void addItem(Item item);
 
     public void removeItem(int id);
@@ -11,5 +11,5 @@ public interface Interface {
 
     public void checkLowStock();
 
-    void findItem(Inventory inventory, Scanner sc);
+    void findItem(Scanner sc);
 }

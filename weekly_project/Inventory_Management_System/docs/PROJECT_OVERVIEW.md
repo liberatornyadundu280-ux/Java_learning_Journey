@@ -18,7 +18,7 @@ This project is organized as a small OOP learning project with these capabilitie
 - `Inventory.java`: Core inventory logic and in-memory `List<Item>` storage.
 - `Item.java`: Product model, auto-ID generation, and interactive item creation wizard.
 - `InputValidator.java`: Reusable integer input validation utility.
-- `Interface.java`: Inventory operation contract used by `Inventory`.
+- `InventoryOperations.java`: Inventory operation contract used by `Inventory`.
 
 ## Default Seed Data
 

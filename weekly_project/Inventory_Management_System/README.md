@@ -1,24 +1,34 @@
 # Inventory Management System
 
-High-level overview
+This is a Java console-based inventory MVP using package `inventory`.
 
-- A small inventory management console application demonstrating basic object-oriented design in Java. It models items and an inventory with simple CRUD-like operations via `Main.java`.
+## Project layout
 
-Key files
-
-- `inventory/Inventory.java` — main inventory logic.
-- `inventory/Item.java` — item model.
-- `inventory/Main.java` — entry point demonstrating usage.
-
-How to run
-
-```bash
-cd weekly_project/Inventory_Management_System
-javac inventory/*.java
-java inventory.Main
+```text
+Inventory_Management_System/
+  src/
+    main/
+      java/
+        inventory/
+          Main.java            # entry point
+          Inventory.java       # core inventory operations
+          Item.java            # product model
+          InputValidator.java  # input validation helpers
+          InventoryOperations.java # inventory contract
+      resources/               # reserved for config/sql/resources
+    test/
+      java/                    # reserved for unit tests
+  docs/
+    PROJECT_OVERVIEW.md
+  README.md
 ```
 
-What you'll learn
+## How to run
 
-- Designing simple domain models and organizing code into packages.
-- Basic console I/O and program flow in a small project.
+From project root:
+
+```powershell
+New-Item -ItemType Directory -Force out | Out-Null
+javac -d out src/main/java/inventory/*.java
+java -cp out inventory.Main
+```

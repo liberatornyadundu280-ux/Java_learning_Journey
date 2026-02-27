@@ -4,22 +4,19 @@ import java.util.Scanner;
 
 public class InputValidator {
 
-    // Use a static Scanner shared across all validator methods.
-    private static final Scanner SCANNER = new Scanner(System.in);
-
     // --- Version 1: Basic Integer Validation (No Range) ---
     // User can call: InputValidator.getValidInt("Age: ");
-    public static int getValidInt(String prompt) {
+    public static int getValidInt(Scanner scanner, String prompt) {
         // Calls the full version, using the smallest and largest possible integers for
         // the range.
-        return getValidInt(prompt, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        return getValidInt(scanner, prompt, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
     // --- Version 2: Integer Validation with Minimum (Min Only) ---
     // User can call: InputValidator.getValidInt("ID: ", 100);
-    public static int getValidInt(String prompt, int min) {
+    public static int getValidInt(Scanner scanner, String prompt, int min) {
         // Calls the full version, using the largest possible integer as max.
-        return getValidInt(prompt, min, Integer.MAX_VALUE);
+        return getValidInt(scanner, prompt, min, Integer.MAX_VALUE);
     }
 
     // --- Version 3: Full Integer Validation (Min and Max) ---
@@ -32,14 +29,14 @@ public class InputValidator {
      * @param max    The maximum acceptable integer value (inclusive).
      * @return A valid integer provided by the user.
      */
-    public static int getValidInt(String prompt, int min, int max) {
+    public static int getValidInt(Scanner scanner, String prompt, int min, int max) {
         int inputInt = -1;
         boolean isValid = false;
 
         // Loop until a valid input is received
         while (!isValid) {
             System.out.print(prompt);
-            String input = SCANNER.nextLine();
+            String input = scanner.nextLine();
 
             try {
                 // 1. Check for data type error (NumberFormatException)
@@ -66,5 +63,41 @@ public class InputValidator {
             }
         }
         return inputInt;
+    }
+
+    public static double getValidDouble(Scanner scanner, String prompt) {
+        return getValidDouble(scanner, prompt, -Double.MAX_VALUE, Double.MAX_VALUE);
+    }
+
+    public static double getValidDouble(Scanner scanner, String prompt, double min) {
+        return getValidDouble(scanner, prompt, min, Double.MAX_VALUE);
+    }
+
+    public static double getValidDouble(Scanner scanner, String prompt, double min, double max) {
+        double inputDouble = 0.0;
+        boolean isValid = false;
+
+        while (!isValid) {
+            System.out.print(prompt);
+            String input = scanner.nextLine();
+
+            try {
+                inputDouble = Double.parseDouble(input);
+
+                if (inputDouble >= min && inputDouble <= max) {
+                    isValid = true;
+                } else {
+                    if (max == Double.MAX_VALUE) {
+                        System.out.println(">>> Error: Please enter a number greater than or equal to " + min + ".");
+                    } else {
+                        System.out.println(">>> Error: Please enter a number between " + min + " and " + max + ".");
+                    }
+                }
+            } catch (NumberFormatException e) {
+                System.out.println(">>> Error: Invalid input. Please enter a valid number.");
+            }
+        }
+
+        return inputDouble;
     }
 }
