@@ -11,7 +11,12 @@ public final class Database {
     }
 
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(resolveDbUrl());
+        Connection connection = DriverManager.getConnection(resolveDbUrl());
+        try (var statement = connection.createStatement()) {
+            // SQLite keeps foreign key enforcement disabled unless enabled per connection.
+            statement.execute("PRAGMA foreign_keys = ON");
+        }
+        return connection;
     }
 
     public static String resolveDbUrl() {

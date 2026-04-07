@@ -83,7 +83,7 @@ public final class DatabaseInitializer {
                 }
 
                 String passwordHash = resultSet.getString("password_hash");
-                if (passwordHash != null && passwordHash.startsWith("TODO_")) {
+                if (passwordHash == null || !PasswordUtil.verifyPassword("admin123", passwordHash)) {
                     updateDefaultAdminPassword(connection);
                 }
             }

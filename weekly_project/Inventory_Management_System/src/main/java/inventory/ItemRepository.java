@@ -118,7 +118,7 @@ public class ItemRepository {
     }
 
     public List<InventoryTransactionEntry> getTodayInventoryTransactions() {
-        String sql = "SELECT id, item_id, transaction_type, quantity_change, quantity_before, quantity_after, note, actor_user_id, created_at FROM inventory_transactions WHERE date(created_at) = date('now') ORDER BY id DESC";
+        String sql = "SELECT id, item_id, transaction_type, quantity_change, quantity_before, quantity_after, note, actor_user_id, created_at FROM inventory_transactions WHERE date(created_at, 'localtime') = date('now', 'localtime') ORDER BY id DESC";
         return runTransactionQuery(sql, null);
     }
 

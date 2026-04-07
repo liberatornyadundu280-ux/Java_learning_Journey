@@ -39,7 +39,7 @@ public class AuditRepository {
     }
 
     public List<AuditLogEntry> getTodayLogs() {
-        String sql = "SELECT id, actor_user_id, action, target_type, target_id, details, created_at FROM audit_logs WHERE date(created_at) = date('now') ORDER BY id DESC";
+        String sql = "SELECT id, actor_user_id, action, target_type, target_id, details, created_at FROM audit_logs WHERE date(created_at, 'localtime') = date('now', 'localtime') ORDER BY id DESC";
         return runLogQuery(sql, null);
     }
 
